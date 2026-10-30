@@ -14,6 +14,35 @@ Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morp
 - Samsung account, cloud and Galaxy AI features that can't work outside Samsung's own app are hidden, and their background services are turned off.
 - The app is named "Notes" with its own icon and accent colour, both changeable when patching.
 
+## Screenshots
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/side-menu.png" height="416" alt="Side menu with Backup and sync"></td>
+    <td><img src="docs/screenshots/backup-sync.png" height="416" alt="Backup and sync"></td>
+  </tr>
+  <tr>
+    <td>Side menu with Backup and sync</td>
+    <td>Backup and sync</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/settings.png" height="321" alt="Settings with Pen button actions"></td>
+    <td><img src="docs/screenshots/pen-buttons.png" height="321" alt="Pen button actions with learned buttons"></td>
+  </tr>
+  <tr>
+    <td>Settings with Pen button actions</td>
+    <td>Pen button actions with learned buttons</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/pen-actions.png" height="520" alt="Actions for a pen button"></td>
+    <td><img src="docs/screenshots/note-menu.png" height="520" alt="Note menu with finger drawing"></td>
+  </tr>
+  <tr>
+    <td>Actions for a pen button</td>
+    <td>Note menu with finger drawing</td>
+  </tr>
+</table>
+
 ## Backup and sync
 
 Backup to folder adds a Backup row at the bottom of the side menu. Back up now saves every note that changed since the last backup as an `.sdocx` file, the same file Samsung Notes shares, in a folder you pick. Import from backup adds the notes from that folder that the app doesn't have, for instance after a reinstall or on a new device, and leaves the notes it already has alone.
