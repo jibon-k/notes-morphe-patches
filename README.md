@@ -1,39 +1,28 @@
 # Jibon's Notes patches
 
-Morphe patches that make Samsung Notes run on Android phones and tablets that are not made by Samsung. I made them for my Redmi Pad 2 running the crDroid GSI on Android 16, and every patch below was tested there with Samsung Notes 4.4.48.15 (arm64 APK).
+Morphe patches that run Samsung Notes on Android devices not made by Samsung, tested on a Redmi Pad 2 with Samsung Notes 4.4.48.15.
 
-Add these patches to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morphe-patches
+Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morphe-patches
 
-## Install
+## Features
 
-1. Open the link above on your phone or tablet with Morphe installed, or add `jibon-k/notes-morphe-patches` as a patch source in Morphe Manager.
-2. Get the Samsung Notes APK, version 4.4.48.15 for arm64. Other versions may work, but the patches were made from this one.
-3. In Morphe Manager, pick the APK from storage and keep the default patches. Turn on Morphe's own Clone app patch as well if you want to keep the real Samsung Notes installed next to it.
-4. Install the patched APK and open it once. It starts in the note list with finger drawing on.
+- Samsung Notes installs and runs without One UI, including notes, handwriting, the pen toolbar and the colour picker.
+- An active pen works like an S Pen, and fingers can draw and scroll.
+- The pen's buttons run actions such as undo, eraser, pen colour or page scroll on single, double and long press. Learn buttons in Settings records any pen's two buttons.
+- Notes back up to a folder you choose and can be imported back.
+- Notes sync between devices through a shared folder (experimental).
+- Samsung account, cloud and Galaxy AI features that can't work outside Samsung's own app are hidden, and their background services are turned off.
+- The app is named "Notes" with its own icon and accent colour, both changeable when patching.
 
-## What the patches do
+## Backup and sync
 
-These three are always needed, because the app doesn't install or run without them.
+Backup to folder adds a Backup row at the bottom of the side menu. Back up now saves every note that changed since the last backup as an `.sdocx` file, the same file Samsung Notes shares, in a folder you pick. Import from backup adds the notes from that folder that the app doesn't have, for instance after a reinstall or on a new device, and leaves the notes it already has alone.
 
-| Patch | What it does |
-| --- | --- |
-| Samsung framework compatibility | Adds stand-ins for One UI framework classes and sends about 2,000 calls to One UI only methods and fields to them instead. |
-| Manifest compatibility | Makes the One UI libraries optional so the install doesn't fail, gives the foreground services a type because Android 14 and later crash without one, and drops `multiArch`. |
-| Crash fixes | Reports no iris scanner and finds the pen settings layouts and colour palettes after a package rename, which the colour picker needs. |
+Folder sync is off by default, so turn it on when patching. It uses a second folder that every device shares. Each device writes its list of notes and every changed note into that folder, then brings in the other devices' new notes, edits and deletions. It runs when you tap Sync now and each time the app opens. When the same note was edited on two devices, both versions are kept and one shows up as a copy.
 
-The rest are optional.
+The app doesn't move the folder between devices itself. Use [Syncthing](https://syncthing.net) to keep the sync folder the same on your phone, tablet and PC, and every device with these patches can sync its notes through it.
 
-| Patch | Default | What it does |
-| --- | --- | --- |
-| Treat as pen device | on | Turns on the pen toolbar and hover features for an active pen that is not an S Pen. Leave it off if you don't have an active pen. |
-| Finger drawing | on | Turns off "S Pen only" once, so fingers can draw and scroll. |
-| Pen button actions | on | The pen's buttons run actions on single, double and long press, set in Settings > Pen button actions. Learn buttons in that screen records any pen's two buttons, so pens that send other keys than the Redmi Smart Pen work as well. |
-| Backup to folder | on | Adds a Backup row to the side menu that saves changed notes as `.sdocx` files in a folder you choose. Import from backup brings back the notes the app doesn't have and leaves the rest alone. |
-| Folder sync | off | Experimental sync with your other devices through a shared folder, for instance one synced by Syncthing. New notes, edits and deletions sync when you tap Sync now and when the app opens. Needs Backup to folder. |
-| Hide Samsung account features | on | Hides Samsung Cloud, sign-in prompts, sharing, Galaxy AI and Lock, because they only work in an app signed by Samsung. |
-| Turn off Samsung cloud components | on | Turns off the account, cloud, push and co-editing services that would only run in the background. |
-| Hide camera | off | Removes Insert > Camera. |
-| Branding | on | Names the app "Notes", uses my pen logo as the launcher icon and a red accent instead of Samsung's blue. The options change the name and the accent colours, and an empty value keeps Samsung's. |
+## Patches
 
 <!-- PATCHES_START -->
 > **[v1.0.0](https://github.com/jibon-k/notes-morphe-patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;12 patches total
@@ -64,46 +53,6 @@ The rest are optional.
 </details>
 
 <!-- PATCHES_END -->
-
-## Options
-
-| Patch | Option | Default |
-| --- | --- | --- |
-| Pen button actions | `upperKey`, `lowerKey` | 92 and 93 (Page Up and Page Down, as the Redmi Smart Pen sends) |
-| Pen button actions | `deviceName` | `Redmi Smart Pen`. Use `@stylus` for any device that reports itself as a stylus, or leave it empty for any device. |
-| Branding | `appName` | `Notes` |
-| Branding | `accentLight`, `accentDark` | `#C8372A` and `#FF7A6B` |
-
-Buttons learned in the app replace the pen options.
-
-## Troubleshooting
-
-- The pen only scrolls and never draws. Keyboard mode is on in the editor, so switch back to a pen in the toolbar.
-- The pen buttons do nothing. Open Settings > Pen button actions, tap Learn buttons and press both buttons.
-- "The backup folder was deleted or moved" or the same for the sync folder. Choose the folder again from the Backup row.
-- A crash. Run `adb logcat -b crash -d` and open a bug report with the output.
-
-## Patch on a PC
-
-You need Java 21, `gh` logged in, Android build-tools 35 and apktool.
-
-```sh
-tools/patch.sh notes-4.4.48.15.apk
-tools/patch.sh notes-4.4.48.15.apk -e "Folder sync" -e "Pen button actions" -O upperKey=24 -O lowerKey=25
-PKG=com.example.notes tools/patch.sh notes-4.4.48.15.apk -e Branding -O appName="My Notes" -O accentLight="#2F5597"
-```
-
-The first command applies the default patches. Add `-e` or `-d` with a patch name to turn it on or off, and `-O key=value` right after a patch to set its option. `PKG` sets the package name, which is `com.jibon.samsungnotes.patched` by default.
-
-The APK lands in `out/`, signed with `tools/test.keystore`. The key is created on the first run, and updates need the same key, so keep it.
-
-## Build
-
-- `./gradlew buildAndroid` builds `patches/build/libs/patches-*.mpp`. It needs a GitHub token with `read:packages`, for instance `GITHUB_ACTOR=jibon-k GITHUB_TOKEN=$(gh auth token) ./gradlew buildAndroid` after `gh auth refresh -s read:packages`.
-- `tools/build-local.sh` builds `build/notes-patches.mpp` without Gradle, using the Morphe CLI jar.
-- `tools/build-stubs.sh <notes.apk>` rebuilds `compat-stubs.mpe` from `stubs/smali/`.
-
-Releases are made by `release.yml` from `feat:` and `fix:` commits, `main` for stable and `dev` for pre-releases.
 
 ## Author
 
