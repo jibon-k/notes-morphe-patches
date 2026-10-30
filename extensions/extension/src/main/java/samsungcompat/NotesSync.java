@@ -117,6 +117,10 @@ public final class NotesSync {
             String message;
             boolean noChanges = false;
             try {
+                if (!NoteFiles.treeExists(app, tree)) {
+                    prefs(app).edit().remove(TREE_URI).apply();
+                    throw new FolderGoneException();
+                }
                 String deviceId = deviceId(app);
                 SyncRunner runner = new SyncRunner(deviceId,
                     new SyncPlanner(deviceId, Build.MODEL, "4.4.48.15-port", TOMBSTONE_RETENTION_MS),
@@ -136,6 +140,8 @@ public final class NotesSync {
                     message = "Sync could not finish; nothing was published";
                     Log.e(TAG, "Sync failed", result.error);
                 }
+            } catch (FolderGoneException e) {
+                message = "The sync folder was deleted or moved. Choose it again";
             } catch (SecurityException e) {
                 prefs(app).edit().remove(TREE_URI).apply();
                 message = "Choose the sync folder again";

@@ -303,6 +303,8 @@ public final class NotesBackup {
                     message = "Imported " + result[0] + " notes";
                     if (result[2] > 0) message += "; " + result[2] + " could not be imported";
                 }
+            } catch (FolderGoneException e) {
+                message = "The backup folder was deleted or moved. Choose it again";
             } catch (SecurityException e) {
                 app.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
                     .remove(TREE_URI).apply();
@@ -320,6 +322,7 @@ public final class NotesBackup {
 
     /** @return {imported, already here, failed} */
     private static int[] importMissingNotes(Context context, Uri tree) throws Exception {
+        requireFolder(context, tree);
         ContentResolver resolver = context.getContentResolver();
         Map<String, Uri> children = listChildren(resolver, tree);
         Map<String, String[]> index = readIndex(resolver, children);
@@ -440,6 +443,8 @@ public final class NotesBackup {
                 if (result[2] > 0) {
                     message += "; " + result[2] + " notes were being saved, run backup again";
                 }
+            } catch (FolderGoneException e) {
+                message = "The backup folder was deleted or moved. Choose it again";
             } catch (SecurityException e) {
                 app.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
                     .remove(TREE_URI).apply();
@@ -459,6 +464,7 @@ public final class NotesBackup {
 
     /** @return {exported, unchanged, busy} where busy notes were mid-save and left for next run */
     private static int[] exportChangedNotes(Context context, Uri tree) throws Exception {
+        requireFolder(context, tree);
         Object repositoryManager = Class.forName(
             "com.samsung.android.support.senl.nt.app.common.data.RepositoryManager")
             .getMethod("getInstance").invoke(null);
@@ -534,6 +540,12 @@ public final class NotesBackup {
         }
         writeIndex(resolver, tree, children, nextIndex);
         return new int[]{exported, skipped, busy};
+    }
+
+    private static void requireFolder(Context context, Uri tree) {
+        if (NoteFiles.treeExists(context, tree)) return;
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().remove(TREE_URI).apply();
+        throw new FolderGoneException();
     }
 
     private static String[] entry(long modified, String digest, String filename, String stamp) {

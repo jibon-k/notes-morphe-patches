@@ -1,6 +1,9 @@
 package samsungcompat;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.DocumentsContract;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -118,6 +121,19 @@ final class NoteFiles {
             if (!Boolean.TRUE.equals(ok)) throw new IOException("import failed for " + uuid);
         } catch (ReflectiveOperationException e) {
             throw new IOException("import failed for " + uuid, e);
+        }
+    }
+
+    /** False when the folder picked earlier was deleted or moved. */
+    static boolean treeExists(Context context, Uri tree) {
+        Uri root = DocumentsContract.buildDocumentUriUsingTree(tree, DocumentsContract.getTreeDocumentId(tree));
+        try (Cursor cursor = context.getContentResolver().query(root,
+                new String[]{DocumentsContract.Document.COLUMN_DOCUMENT_ID}, null, null, null)) {
+            return cursor != null && cursor.moveToFirst();
+        } catch (SecurityException e) {
+            throw e;
+        } catch (Exception e) {
+            return false;
         }
     }
 
