@@ -51,6 +51,9 @@ public final class NotesBackup {
     private static final String PART = ".part";
     private static final AtomicBoolean RUNNING = new AtomicBoolean();
     private static final String TAG = "OnePortNotesBackup";
+    private static final String AUTHOR_URL = "https://github.com/jibon-k";
+    /** Height reserved under the Backup row for the credit line. */
+    private static final int CREDIT_DP = 24;
 
     private NotesBackup() {}
 
@@ -107,15 +110,19 @@ public final class NotesBackup {
         labelParams.setMarginEnd(dp(context, 12));
         row.addView(label, labelParams);
         applyTextColor(icon, label, label.getTextColors());
+        TextView credit = createCredit(context);
 
         if (root instanceof FrameLayout) {
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, dp(context, 40), Gravity.BOTTOM);
             ((FrameLayout) root).addView(row, lp);
+            ((FrameLayout) root).addView(credit, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.BOTTOM | Gravity.START));
             View list = root.findViewById(0x7f090545);
             if (list != null) {
                 list.setPadding(list.getPaddingLeft(), list.getPaddingTop(),
-                    list.getPaddingRight(), list.getPaddingBottom() + dp(context, 72));
+                    list.getPaddingRight(), list.getPaddingBottom() + dp(context, 72 + CREDIT_DP));
             }
         } else if (root instanceof LinearLayout) {
             View list = root.findViewById(0x7f090545);
@@ -130,6 +137,8 @@ public final class NotesBackup {
             }
             ((LinearLayout) root).addView(row, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, dp(context, 40)));
+            ((LinearLayout) root).addView(credit, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
         // collapsed (-1 unknown), native style copied, start/end inset of the native rows
         final int[] state = {-1, 0, dp(context, 14), dp(context, 14)};
@@ -137,15 +146,15 @@ public final class NotesBackup {
         // The rail is the expanded drawer clipped to ~72dp, not relaid out, so check what is
         // visible before every frame; this returns early unless the state changes.
         root.getViewTreeObserver().addOnPreDrawListener(() -> {
-            updateSidebarRow(context, root, row, icon, label, state, visible);
+            updateSidebarRow(context, root, row, icon, label, credit, state, visible);
             return true;
         });
         return row;
     }
 
     private static void updateSidebarRow(Context context, View root, LinearLayout row,
-                                         ImageView icon, TextView label, int[] state,
-                                         Rect visible) {
+                                         ImageView icon, TextView label, TextView credit,
+                                         int[] state, Rect visible) {
         if (state[1] == 0 && copyNativeRowStyle(root, icon, label, state)) {
             state[1] = 1;
             state[0] = -1;  // re-apply the layout with the native insets
@@ -156,20 +165,53 @@ public final class NotesBackup {
         if (collapsed == state[0]) return;
         state[0] = collapsed;
         label.setVisibility(collapsed == 1 ? View.GONE : View.VISIBLE);
+        credit.setVisibility(collapsed == 1 ? View.GONE : View.VISIBLE);
         ViewGroup.LayoutParams current = row.getLayoutParams();
         int width = collapsed == 1 ? dp(context, 44) : ViewGroup.LayoutParams.MATCH_PARENT;
+        // The credit sits under the row, lined up with its label.
+        int creditStart = state[2] + dp(context, 52);
+        int rowBottom = dp(context, collapsed == 1 ? 20 : 20 + CREDIT_DP);
+        ViewGroup.MarginLayoutParams creditParams = (ViewGroup.MarginLayoutParams) credit.getLayoutParams();
         if (current instanceof FrameLayout.LayoutParams) {
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) current;
             params.width = width;
             params.gravity = Gravity.BOTTOM | Gravity.START;
-            params.setMargins(state[2], 0, state[3], dp(context, 20));
+            params.setMargins(state[2], 0, state[3], rowBottom);
+            creditParams.setMargins(creditStart, 0, state[3], dp(context, 16));
         } else if (current instanceof LinearLayout.LayoutParams) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) current;
             params.width = width;
             params.gravity = Gravity.START;
-            params.setMargins(state[2], dp(context, 8), state[3], dp(context, 20));
+            params.setMargins(state[2], dp(context, 8), state[3], dp(context, 4));
+            creditParams.setMargins(creditStart, 0, state[3], dp(context, 16));
         }
         row.setLayoutParams(current);
+        credit.setLayoutParams(creditParams);
+    }
+
+    private static TextView createCredit(Context context) {
+        TextView credit = new TextView(context);
+        credit.setText("Patches by jibon-k");
+        credit.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        boolean night = (context.getResources().getConfiguration().uiMode
+            & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
+            == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        credit.setTextColor(night ? 0xff8ab4f8 : 0xff1a73e8);
+        credit.setContentDescription("Patches by jibon-k, opens GitHub");
+        int pad = dp(context, 4);
+        credit.setPadding(0, pad, 0, pad);
+        credit.setOutlineProvider(null);
+        credit.setTranslationZ(dp(context, 16));
+        credit.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AUTHOR_URL));
+            if (!(v.getContext() instanceof android.app.Activity)) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                v.getContext().startActivity(intent);
+            } catch (android.content.ActivityNotFoundException e) {
+                show(v.getContext(), AUTHOR_URL);
+            }
+        });
+        return credit;
     }
 
     /**
