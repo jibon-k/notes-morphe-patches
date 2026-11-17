@@ -11,20 +11,21 @@ Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morp
 - The pen's buttons run actions such as undo, eraser, pen colour or page scroll on single, double and long press. Learn buttons in Settings records any pen's two buttons.
 - Notes back up to a folder you choose and can be imported back.
 - Notes sync between devices through a shared folder (experimental).
-- Samsung account, cloud and Galaxy AI features that can't work outside Samsung's own app are hidden, and their background services are turned off.
+- Notes sync with Samsung Cloud after signing in to a Samsung account on Samsung's web page.
 - Samsung Analytics, crash reports, usage surveys, marketing uploads and the Play review prompt are turned off.
+- Optional: hide the Samsung account features and turn off their background services.
 - The app is named "Notes" with its own icon and accent colour, both changeable when patching.
 
 ## Screenshots
 
 <table>
   <tr>
-    <td><img src="docs/screenshots/side-menu.png" height="416" alt="Side menu with Backup and sync"></td>
-    <td><img src="docs/screenshots/backup-sync.png" height="416" alt="Backup and sync"></td>
+    <td><img src="docs/screenshots/side-menu.png" height="416" alt="Side menu with Local backup and sync"></td>
+    <td><img src="docs/screenshots/backup-sync.png" height="416" alt="Local backup and sync"></td>
   </tr>
   <tr>
-    <td>Side menu with Backup and sync</td>
-    <td>Backup and sync</td>
+    <td>Side menu with Local backup and sync</td>
+    <td>Local backup and sync</td>
   </tr>
   <tr>
     <td><img src="docs/screenshots/settings.png" height="321" alt="Settings with Pen button actions"></td>
@@ -44,13 +45,25 @@ Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morp
   </tr>
 </table>
 
-## Backup and sync
+## Local backup and sync
 
-Backup to folder adds a Backup row at the bottom of the side menu. Back up now saves every note that changed since the last backup as an `.sdocx` file, the same file Samsung Notes shares, in a folder you pick. Import from backup adds the notes from that folder that the app doesn't have, for instance after a reinstall or on a new device, and leaves the notes it already has alone.
+Backup to folder adds a Local backup row at the bottom of the side menu. Back up now saves every note that changed since the last backup as an `.sdocx` file, the same file Samsung Notes shares, in a folder you pick. Import from backup adds the notes from that folder that the app doesn't have, for instance after a reinstall or on a new device, and leaves the notes it already has alone.
 
 Folder sync is on by default. It uses a second folder that every device shares. Each device writes its list of notes and every changed note into that folder, then brings in the other devices' new notes, edits and deletions. It runs when you tap Sync now and each time the app opens. When the same note was edited on two devices, both versions are kept and one shows up as a copy.
 
 The app doesn't move the folder between devices itself. Use [Syncthing](https://syncthing.net) to keep the sync folder the same on your phone, tablet and PC, and every device with these patches can sync its notes through it.
+
+## Samsung Cloud sync
+
+Samsung account sign-in is on by default. Open Settings > Sync with Samsung Cloud and sign in on Samsung's page; Notes then syncs with Samsung Cloud like on a Samsung phone, and Samsung account in the same screen shows the account and signs out.
+
+It only works when the Samsung Account app (`com.osp.app.signin`) is not installed. Disabling it is not enough; uninstall it first:
+
+```bash
+adb uninstall com.osp.app.signin
+```
+
+If you don't want Samsung Cloud at all, turn off Samsung account sign-in and turn on Hide Samsung account features and Turn off Samsung cloud components when patching.
 
 ## Patches
 
