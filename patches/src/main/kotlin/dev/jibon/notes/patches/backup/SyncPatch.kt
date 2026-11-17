@@ -12,7 +12,7 @@ val syncPatch = bytecodePatch(
     name = "Folder sync",
     description = "Experimental. Syncs notes with other devices through a shared folder (for example one " +
         "kept in sync by Syncthing): \"Sync now\" in the Backup menu, and automatically each time the app opens.",
-    default = false,
+    default = true,
 ) {
     compatibleWith(COMPATIBILITY_NOTES)
     dependsOn(backupPatch)

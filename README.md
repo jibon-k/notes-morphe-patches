@@ -47,7 +47,7 @@ Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morp
 
 Backup to folder adds a Backup row at the bottom of the side menu. Back up now saves every note that changed since the last backup as an `.sdocx` file, the same file Samsung Notes shares, in a folder you pick. Import from backup adds the notes from that folder that the app doesn't have, for instance after a reinstall or on a new device, and leaves the notes it already has alone.
 
-Folder sync is off by default, so turn it on when patching. It uses a second folder that every device shares. Each device writes its list of notes and every changed note into that folder, then brings in the other devices' new notes, edits and deletions. It runs when you tap Sync now and each time the app opens. When the same note was edited on two devices, both versions are kept and one shows up as a copy.
+Folder sync is on by default. It uses a second folder that every device shares. Each device writes its list of notes and every changed note into that folder, then brings in the other devices' new notes, edits and deletions. It runs when you tap Sync now and each time the app opens. When the same note was edited on two devices, both versions are kept and one shows up as a copy.
 
 The app doesn't move the folder between devices itself. Use [Syncthing](https://syncthing.net) to keep the sync folder the same on your phone, tablet and PC, and every device with these patches can sync its notes through it.
 
