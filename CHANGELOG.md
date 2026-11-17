@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/jibon-k/notes-morphe-patches/compare/v1.0.2...v1.1.0) (2026-11-17)
+
+### ✨ New Features
+
+* folder sync on by default ([3f76c14](https://github.com/jibon-k/notes-morphe-patches/commit/3f76c14ad9506373eec3fbee9f3d1e2013902c3d))
+* turn off Samsung telemetry and Google services ([2d5eab2](https://github.com/jibon-k/notes-morphe-patches/commit/2d5eab2d592a55ae1f4f546f4579eaf2f98a34e5))
+
 ## [1.0.2](https://github.com/jibon-k/notes-morphe-patches/compare/v1.0.1...v1.0.2) (2026-11-17)
 
 ### 🐛 Bug Fixes
