@@ -17,8 +17,8 @@ mkdir -p out
 # --exclusive keeps Morphe's own bundle to "Clone app", so this bundle's default-on patches are listed here.
 DEFAULTS=()
 for p in "Samsung framework compatibility" "Manifest compatibility" "Crash fixes" "Treat as pen device" \
-    "Finger drawing" "Pen button actions" "Backup to folder" "Folder sync" "Hide Samsung account features" \
-    "Turn off Samsung cloud components" "Branding"; do DEFAULTS+=(-e "$p"); done
+    "Finger drawing" "Pen button actions" "Backup to folder" "Folder sync" "Samsung account sign-in" \
+    "Turn off telemetry" "Branding"; do DEFAULTS+=(-e "$p"); done
 $JAVA21 -Xmx6g -jar tools/morphe-cli.jar patch --exclusive \
     -p build/notes-patches.mpp "${DEFAULTS[@]}" "$@" \
     -p tools/morphe-patches.mpp -e "Clone app" -O packageName=$PKG \
