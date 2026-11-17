@@ -12,6 +12,7 @@ Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morp
 - Notes back up to a folder you choose and can be imported back.
 - Notes sync between devices through a shared folder (experimental).
 - Samsung account, cloud and Galaxy AI features that can't work outside Samsung's own app are hidden, and their background services are turned off.
+- Samsung Analytics, crash reports, usage surveys, marketing uploads and the Play review prompt are turned off.
 - The app is named "Notes" with its own icon and accent colour, both changeable when patching.
 
 ## Screenshots
@@ -77,7 +78,7 @@ The app doesn't move the folder between devices itself. Use [Syncthing](https://
 | [Pen button actions](#pen-button-actions) | Lets the pen's two buttons run actions (pen, eraser, undo, colour picker, page up/down...) with single, double and long press. Set up in Settings > Pen button actions. Works with pens whose buttons send key presses (the Redmi Smart Pen sends Page Up / Page Down). | • Upper button key code<br>• Lower button key code<br>• Pen device name |
 | [Samsung framework compatibility](#samsung-framework-compatibility) | Adds stand-ins for One UI framework classes and redirects calls to One UI-only methods and fields, so the app runs on non-Samsung Android. |  |
 | [Treat as pen device](#treat-as-pen-device) | Turns on the app's pen features (pen toolbar, hover) on a device with an active pen that isn't a Samsung S Pen. Leave it off on devices without an active pen. |  |
-| [Turn off Samsung cloud components](#turn-off-samsung-cloud-components) | Turns off the Samsung account, cloud sync, push and co-editing services and receivers. They can't work in a patched app and would only run in the background. |  |
+| [Turn off Samsung cloud components](#turn-off-samsung-cloud-components) | Turns off the Samsung account, cloud sync, push and co-editing services, Samsung Analytics, crash reports, usage surveys and marketing uploads, the Play review prompt and Google Meet sharing, and starts Firebase only if Samsung sync uses it. |  |
 
 </details>
 

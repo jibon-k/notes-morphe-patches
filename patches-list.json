@@ -376,7 +376,7 @@
     },
     {
       "name": "Turn off Samsung cloud components",
-      "description": "Turns off the Samsung account, cloud sync, push and co-editing services and receivers. They can't work in a patched app and would only run in the background.",
+      "description": "Turns off the Samsung account, cloud sync, push and co-editing services, Samsung Analytics, crash reports, usage surveys and marketing uploads, the Play review prompt and Google Meet sharing, and starts Firebase only if Samsung sync uses it.",
       "default": true,
       "category": null,
       "compatiblePackages": [
