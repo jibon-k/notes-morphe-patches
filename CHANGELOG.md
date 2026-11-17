@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/jibon-k/notes-morphe-patches/compare/v1.1.0...v1.2.0) (2026-11-17)
+
+### ✨ New Features
+
+* rename backup to local backup and sync ([6610480](https://github.com/jibon-k/notes-morphe-patches/commit/661048033b1f37f38e3a599841d9b6c939bc9c86))
+* samsung cloud sync through web sign-in ([a5eb27d](https://github.com/jibon-k/notes-morphe-patches/commit/a5eb27d5dac390eadaf7de9bf5c0cf533e44f308))
+
 ## [1.1.0](https://github.com/jibon-k/notes-morphe-patches/compare/v1.0.2...v1.1.0) (2026-11-17)
 
 ### ✨ New Features
