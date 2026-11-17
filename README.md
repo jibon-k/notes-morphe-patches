@@ -68,7 +68,7 @@ The app doesn't move the folder between devices itself. Use [Syncthing](https://
 |----------|----------------|-----------|
 | [Backup to folder](#backup-to-folder) | Adds a Backup row to the bottom of the side menu: backs up changed notes as .sdocx files to a folder you choose (any folder, including SD card or a synced folder). |  |
 | [Branding](#branding) | Your own app name, the Notes pen logo as launcher icon, and an accent colour in place of Samsung's blue. | • App name<br>• Accent colour (light theme)<br>• Accent colour (dark theme) |
-| [Crash fixes](#crash-fixes) | Reports no iris scanner, and finds the pen settings layouts and colour palettes after a package rename (otherwise the colour picker crashes). |  |
+| [Crash fixes](#crash-fixes) | Reports no iris scanner, makes Share (PDF, image, Word...) open the app chooser, and finds the pen settings layouts, colour palettes and share provider after a package rename. |  |
 | [Finger drawing](#finger-drawing) | Turns off "S Pen only" by default (once, at first start), so fingers can draw and scroll. Without it, the app assumes an S Pen and ignores finger input in notes. |  |
 | [Folder sync](#folder-sync) | Experimental. Syncs notes with other devices through a shared folder (for example one kept in sync by Syncthing): "Sync now" in the Backup menu, and automatically each time the app opens. |  |
 | [Hide Samsung account features](#hide-samsung-account-features) | Hides Samsung Cloud sync, sign-in prompts, sharing, Galaxy AI and note locking. They need a Samsung-signed app; this matters mostly on Samsung phones, where the account exists. |  |

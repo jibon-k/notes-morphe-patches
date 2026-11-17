@@ -95,7 +95,7 @@
     },
     {
       "name": "Crash fixes",
-      "description": "Reports no iris scanner, and finds the pen settings layouts and colour palettes after a package rename (otherwise the colour picker crashes).",
+      "description": "Reports no iris scanner, makes Share (PDF, image, Word...) open the app chooser, and finds the pen settings layouts, colour palettes and share provider after a package rename.",
       "default": true,
       "category": null,
       "compatiblePackages": [
