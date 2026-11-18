@@ -9,6 +9,7 @@ Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morp
 - Samsung Notes installs and runs without One UI, including notes, handwriting, the pen toolbar and the colour picker.
 - An active pen works like an S Pen, and fingers can draw and scroll.
 - The pen's buttons run actions such as undo, eraser, pen colour or page scroll on single, double and long press. Learn buttons in Settings records any pen's two buttons.
+- Import PDF, Insert PDF and audio files, Import notes and Save as file use the system file picker (and the file managers it lists) instead of Samsung My Files.
 - Notes back up to a folder you choose and can be imported back.
 - Notes sync between devices through a shared folder (experimental).
 - Notes sync with Samsung Cloud after signing in to a Samsung account on Samsung's web page.
