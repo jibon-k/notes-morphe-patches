@@ -69,9 +69,9 @@ If you don't want Samsung Cloud at all, turn off Samsung account sign-in and tur
 ## Patches
 
 <!-- PATCHES_START -->
-> **[v1.2.0](https://github.com/jibon-k/notes-morphe-patches/releases/tag/v1.2.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;14 patches total
+> **[v1.3.0](https://github.com/jibon-k/notes-morphe-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;15 patches total
 <details open>
-<summary>📦 Samsung Notes&nbsp;&nbsp;•&nbsp;&nbsp;14 patches</summary>
+<summary>📦 Samsung Notes&nbsp;&nbsp;•&nbsp;&nbsp;15 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -92,6 +92,7 @@ If you don't want Samsung Cloud at all, turn off Samsung account sign-in and tur
 | [Pen button actions](#pen-button-actions) | Lets the pen's two buttons run actions (pen, eraser, undo, colour picker, page up/down...) with single, double and long press. Set up in Settings > Pen button actions. Works with pens whose buttons send key presses (the Redmi Smart Pen sends Page Up / Page Down). | • Upper button key code<br>• Lower button key code<br>• Pen device name |
 | [Samsung account sign-in](#samsung-account-sign-in) | Signs in to your Samsung account on Samsung's web page to sync with Samsung Cloud. Needs the Samsung Account app to be absent. |  |
 | [Samsung framework compatibility](#samsung-framework-compatibility) | Adds stand-ins for One UI framework classes and redirects calls to One UI-only methods and fields, so the app runs on non-Samsung Android. |  |
+| [System file picker](#system-file-picker) | Opens the system file picker, which also lists the other file managers, wherever Notes needs Samsung My Files: Insert PDF, audio and text files, Import notes, Save as file and export. |  |
 | [Treat as pen device](#treat-as-pen-device) | Turns on the app's pen features (pen toolbar, hover) on a device with an active pen that isn't a Samsung S Pen. Leave it off on devices without an active pen. |  |
 | [Turn off Samsung cloud components](#turn-off-samsung-cloud-components) | Turns off the Samsung account, cloud sync, push and co-editing services. Samsung Cloud sync stops working. |  |
 | [Turn off telemetry](#turn-off-telemetry) | Turns off Samsung Analytics, crash reports, usage surveys and marketing uploads, the Play review prompt, Google Meet sharing and Google Sign-In, and starts Firebase only if Samsung sync uses it. |  |
