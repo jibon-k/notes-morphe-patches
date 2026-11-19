@@ -46,6 +46,10 @@ Add them to Morphe: https://morphe.software/add-source?github=jibon-k/notes-morp
   </tr>
 </table>
 
+## Samsung phones
+
+On a Samsung phone the official Samsung Notes is a system app, so the patched app can't install over it. Turn on Morphe's **Clone app** patch when patching. It installs the patched Notes next to the official one, as `com.samsung.android.app.notes.morphe`.
+
 ## Local backup and sync
 
 Backup to folder adds a Local backup row at the bottom of the side menu. Back up now saves every note that changed since the last backup as an `.sdocx` file, the same file Samsung Notes shares, in a folder you pick. Import from backup adds the notes from that folder that the app doesn't have, for instance after a reinstall or on a new device, and leaves the notes it already has alone.
@@ -58,11 +62,7 @@ The app doesn't move the folder between devices itself. Use [Syncthing](https://
 
 Samsung account sign-in is on by default. Open Settings > Sync with Samsung Cloud and sign in on Samsung's page; Notes then syncs with Samsung Cloud like on a Samsung phone, and Samsung account in the same screen shows the account and signs out.
 
-It only works when the Samsung Account app (`com.osp.app.signin`) is not installed. Disabling it is not enough; uninstall it first:
-
-```bash
-adb uninstall com.osp.app.signin
-```
+This works on Samsung phones too. Notes keeps its own sign-in and doesn't use the account signed in on the phone, because Samsung's account app only works with Samsung's own Notes app.
 
 If you don't want Samsung Cloud at all, turn off Samsung account sign-in and turn on Hide Samsung account features and Turn off Samsung cloud components when patching.
 
